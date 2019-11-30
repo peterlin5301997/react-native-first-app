@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, TextInput, Button } from 'react-native';
+import { StyleSheet, Text, View, TextInput, Button, ScrollView, FlatList } from 'react-native';
 
 export default function App() {
   const [enteredGoal, setEnteredGoal] = useState('') // React Hook
@@ -10,7 +10,7 @@ export default function App() {
   }
 
   const addGoal = () => {
-    setCourseGoals(currentGoals => [...courseGoals, enteredGoal])
+    setCourseGoals((currentGoals, idx) => [...courseGoals, { key: idx, value: enteredGoal }])
   }
 
   return(
@@ -19,9 +19,15 @@ export default function App() {
         <TextInput placeholder="Course Goal" style={styles.input} onChangeText={goalInputChange} />
         <Button title="ADD" onPress={addGoal} />
       </View>
-      <View>
-        {courseGoals.map((goal) => <Text>{goal}</Text>)}
-      </View>
+      <FlatList
+        keyExtractor={(item, idx) => item.key}
+        data={courseGoals}
+        renderItem={goal => (
+          <View style={styles.listItem}>
+            <Text>{goal.item.value}</Text>
+          </View>
+        )}
+      />
     </View>
   )
 }
@@ -39,5 +45,12 @@ const styles = StyleSheet.create({
     borderBottomColor: 'black',
     borderBottomWidth: 1,
     width: '80%'
+  },
+  listItem: {
+    padding: 10,
+    marginVertical: 10, // React Native Only, N/A in CSS
+    backgroundColor: '#ccc',
+    borderColor: 'black',
+    borderWidth: 1
   }
 })
