@@ -1,14 +1,12 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, View, Button } from 'react-native';
+import ChangeText from './components/ChangeText.js';
+import AddCourse from './components/AddCourse.js';
 
 export default function App() {
-  const [outputText, setOutputText] = useState('Open up App.js to start working on your app!') // Uses React Hook
-  return (
-    <View style={styles.container}>
-      <Text>{outputText}</Text>
-      <Button title="Change Text" onPress={() => {setOutputText('The text changed!')}} />
-    </View>
-  );
+  return(
+    <AddCourse />
+  )
 }
 
 const styles = StyleSheet.create({
